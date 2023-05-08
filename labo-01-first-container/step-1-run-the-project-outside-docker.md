@@ -14,9 +14,9 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 <!---->
 
-* [ ] What type of application is it ?
-* [ ] Which database engine is used ?
-* [ ] Do we need to install the package manager _MAVEN_ before building the project ?
+* [x] What type of application is it ? Application Web
+* [x] Which database engine is used ? MySQL or PostgreSQL
+* [x] Do we need to install the package manager _MAVEN_ before building the project ? No, it's optional, you can choose between Maven or Gradle.
 
 <!---->
 
@@ -24,45 +24,50 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 <!---->
 
-* [ ] Which version of Java should compatible with the code provided ?
+* [x] Which version of Java should compatible with the code provided ? Java 17 or newer
 
 ## Setup Java components
 
 ### Check your current java installation
 
-* [ ] Where is java installed ?
+* [x] Where is java installed ?
 
 ```
 [INPUT]
-//TODO
+which java
 
 [OUTPUT]
-//TODO
+/usr/bin/java
 ```
 
-* [ ] Which current compiler is installed (JDK) ?
+* [x] Which current compiler is installed (JDK) ?
 
 ```
 [INPUT]
-//TODO
+java --version
 
 [OUTPUT]
-//TODO
+openjdk 20.0.1 2023-04-18
+OpenJDK Runtime Environment (build 20.0.1+9-29)
+OpenJDK 64-Bit Server VM (build 20.0.1+9-29, mixed mode, sharing)
 ```
 
-* [ ] Which current runtime is installed (JRE) ?
+* [x] Which current runtime is installed (JRE) ?
 
 ```
 [INPUT]
-//TODO
+java --version
 
 [OUTPUT]
-//TODO
+openjdk 20.0.1 2023-04-18
+OpenJDK Runtime Environment (build 20.0.1+9-29)
+OpenJDK 64-Bit Server VM (build 20.0.1+9-29, mixed mode, sharing)
 ```
 
-* [ ] Do we need to install the java virtual machine (JVM) ?
+* [x] Do we need to install the java virtual machine (JVM) ?
 
 ```
+No, JDK already contains JVM so we can run our java program
 ```
 
 ### Install the Open JDK
@@ -70,16 +75,18 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 * [Oracle Download Web Site](https://jdk.java.net/20/)
 
 {% hint style="info" %}
-* Accept the end user license before trying, then
+* Accept the end user license before trying
 * Then get the target url (cookies.
 {% endhint %}
 
 ```
 [INPUT]
-//TODO
+curl https://download.java.net/java/GA/jdk20.0.1/b4887098932d415489976708ad6d1a4b/9/GPL/openjdk-20.0.1_macos-aarch64_bin.tar.gz --output openjdk.tar.gz
 
 [OUTPUT]
-//TODO
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  183M  100  183M    0     0  3470k      0  0:00:53  0:00:53 --:--:-- 4360k
 ```
 
 <figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Powershell output during sdk download process</p></figcaption></figure>
@@ -92,32 +99,32 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 ```
 [INPUT]
-//TODO
+shasum -a 256 openjdk.tar.gz
 
 [OUTPUT]
-//TODO
+78ae5bb4c96632df8d3f776919c95653d1afd3e715981c4d33be5b3c81d05420  openjdk.tar.gz
 ```
 
 #### Unzip jdk archive
 
 ```
 [INPUT]
-//TODO
+tar -xf openjdk.tar.gz
 
 [OUTPUT]
-//TODO
+No output
 ```
 
 <figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption><p>Powershell output during unzip process</p></figcaption></figure>
 
-#### Move the unzip folder to Progams Folder
+#### Move the unzip folder to Programs Folder
 
 ```
 [INPUT]
-//TODO
+sudo mv jdk-20.0.1.jdk /Library/Java/JavaVirtualMachines
 
 [OUTPUT]
-//TODO
+No output
 ```
 
 #### Set environment variables
@@ -130,10 +137,11 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 ```
 [INPUT]
-//TODO
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-20.0.1.jdk
+echo $JAVA_HOME
 
 [OUTPUT]
-//TODO
+/Library/Java/JavaVirtualMachines/jdk-20.0.1.jdk
 ```
 
 * [ ] Update PATH environment variable
@@ -146,10 +154,11 @@ echo %PATH% > path.back
 
 ```
 [INPUT]
-//TODO
+export PATH=$JAVA_HOME/bin:$PATH
+which java
 
 [OUTPUT]
-//TODO
+/usr/bin/java
 ```
 
 * [ ] Check the variables settings
@@ -173,7 +182,7 @@ echo %PATH% > path.back
 ```
 
 
-### Result expected 
+### Result expected
 
 ```
 [INPUT]
