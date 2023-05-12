@@ -4,15 +4,16 @@
 
 ## Create your docker file
 
-* [ ] Change the directory to the app directory (we will use the same project [as for the previous step](step-1-run-the-project-outside-docker.md)).
-* [ ] Create an empty file named "Dockerfile"
+* [x] Change the directory to the app directory (we will use the same project [as for the previous step](step-1-run-the-project-outside-docker.md)).
+* [x] Create an empty file named "Dockerfile"
 
 ```
 [INPUT]
-//TODO
+mkdir app
+touch app/Dockerfile
 
 [OUTPUT]
-//TODO
+No output
 ```
 
 * Using your IDE, add the following contents to the Dockerfile:
@@ -23,59 +24,60 @@
 FROM eclipse-temurin:17-jdk-jammy
 ```
 
-* [ ] What is the purpose of the directive starting with "# synthax=docker..."
+* [ ] What is the purpose of the directive starting with "# syntax=docker..."
 
 <!---->
 
 * [Official documentation - Synthax directive](https://docs.docker.com/build/dockerfile/frontend/)
 
 ```
-//TODO
+This defines the location of the Dockerfile syntax that is used to build the Dockerfile.
 ```
 
-* [ ] Is the docker image suitable for a production environment?
+* [x] Is the docker image suitable for a production environment?
 
 ```
-//TODO
+Yes, because the dockerfile:1 contains the latest stable release of the version 1 syntax, and receives both “minor” and “patch” updates for the version 1 release cycle.
 ```
 
 ### Dependencies resolution and first app build
 
-* [ ] Set the image's working directory by adding this command line:
+* [x] Set the image's working directory by adding this command line:
 
 ```
 WORKDIR /app
 ```
 
-* [ ] Before we can resolve dependencies with _MAVEN,_ we need to get the _MAVEN_ wrapper and your pom.xml file into your image.
+* [x] Before we can resolve dependencies with _MAVEN,_ we need to get the _MAVEN_ wrapper and your pom.xml file into your image.
 
 ```
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 ```
 
-* [ ] Let's use _MAVEN_ to resolve the dependencies.
+* [x] Let's use _MAVEN_ to resolve the dependencies.
 
 ```
 RUN ./mvnw dependency:resolve
 ```
 
-* [ ] How is it possible to resolve the dependencies when the source code is not available at this point in the process?
+* [x] How is it possible to resolve the dependencies when the source code is not available at this point in the process?
 
 ```
-//TODO
+By declaring dependencies in a configuration file and using a package manager to install them, the Docker image can be built without needing access to the source code. However, it's important to note that if the dependencies change frequently, it may be necessary to rebuild the Docker image more often to ensure that it always contains the latest dependencies.
 ```
 
 * Add the command able to provide (copy) your source code to the image.
 
 ```
-//TODO
+FROM some-base-image
+COPY . /app
 ```
 
 * Add the command responsible to run your application inside the Docker.
 
 ```
-//TODO
+docker build -t my-image .
 ```
 
 ## Create a .dockerignore file
