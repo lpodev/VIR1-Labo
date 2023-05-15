@@ -9,8 +9,7 @@
 
 ```
 [INPUT]
-mkdir app
-touch app/Dockerfile
+touch Dockerfile
 
 [OUTPUT]
 No output
@@ -24,7 +23,7 @@ No output
 FROM eclipse-temurin:17-jdk-jammy
 ```
 
-* [ ] What is the purpose of the directive starting with "# syntax=docker..."
+* [x] What is the purpose of the directive starting with "# syntax=docker..."
 
 <!---->
 
@@ -70,14 +69,13 @@ By declaring dependencies in a configuration file and using a package manager to
 * Add the command able to provide (copy) your source code to the image.
 
 ```
-FROM some-base-image
-COPY . /app
+COPY src ./src
 ```
 
 * Add the command responsible to run your application inside the Docker.
 
 ```
-docker build -t my-image .
+CMD ["./mvnw", "spring-boot:run"]
 ```
 
 ## Create a .dockerignore file
@@ -88,8 +86,8 @@ docker build -t my-image .
 To meet the good practice provided by Docker, we have to reduce the amount of data in the Docker build context. For this first lab, we will simply remove the directory containing the eventual outputs of MAVEN.
 {% endhint %}
 
-* [ ] Create a .dockerignore file in the same directory as the Dockerfile.
-* [ ] Add the folder containing the MAVEN output.
+* [x] Create a .dockerignore file in the same directory as the Dockerfile.
+* [x] Add the folder containing the MAVEN output.
 
 ## Build an image
 
@@ -99,13 +97,13 @@ Read carefully [this doc](https://docs.docker.com/develop/dev-best-practices/) a
 This [doc may also help you with tag samples](https://docs.docker.com/engine/reference/commandline/tag/).
 {% endhint %}
 
-* [ ] Find the best tag for your image (this image is not intended for publication.)
+* [x] Find the best tag for your image (this image is not intended for publication.)
 
 ```
-//TODO
+java-lpo:dev
 ```
 
-* [ ] Build your first Docker image
+* [x] Build your first Docker image
 
 Result Expected:
 
@@ -143,15 +141,32 @@ ble check and reset permissions for sensitive files and directories.
 
 ```
 [INPUT]
-//TODO
+docker build --tag java-lpo:dev ./
 
 [OUTPUT]
-//TODO
+[+] Building 0.8s (11/11) FINISHED
+ => [internal] load .dockerignore                                                                                                                                            0.0s
+ => => transferring context: 47B                                                                                                                                             0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                         0.0s
+ => => transferring dockerfile: 234B                                                                                                                                         0.0s
+ => [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-jammy                                                                                              0.7s
+ => [internal] load build context                                                                                                                                            0.0s
+ => => transferring context: 9.57kB                                                                                                                                          0.0s
+ => [1/6] FROM docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:13ff0fa4f9232f69b9f6e8a4cf86b7cb3a3783dbee06818aa5aee447159c1bc3                                        0.0s
+ => CACHED [2/6] WORKDIR /app                                                                                                                                                0.0s
+ => CACHED [3/6] COPY .mvn/ .mvn                                                                                                                                             0.0s
+ => CACHED [4/6] COPY mvnw pom.xml ./                                                                                                                                        0.0s
+ => CACHED [5/6] RUN ./mvnw dependency:resolve                                                                                                                               0.0s
+ => CACHED [6/6] COPY src ./src                                                                                                                                              0.0s
+ => exporting to image                                                                                                                                                       0.0s
+ => => exporting layers                                                                                                                                                      0.0s
+ => => writing image sha256:b6d10fb42b604c3d60fae4c332fa2dae6c969853e9b3e90bb274854f7ed279b2                                                                                 0.0s
+ => => naming to docker.io/library/java-lpo:dev
 ```
 
 ## View local images
 
-* [ ] Using the "docker images" command, observe your images, and the associated tag.
+* [x] Using the "docker images" command, observe your images, and the associated tag.
 
 ### Result expected:
 
@@ -164,15 +179,16 @@ eclipse-temurin   17-jdk-jammy   56c7bc12ee6d   3 days ago       456MB
 
 ```
 [INPUT]
-//TODO
+docker images
 
 [OUTPUT]
-//TODO
+REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
+java-lpo       dev       b6d10fb42b60   5 minutes ago   602MB
 ```
 
 ## Using tags
 
-* [ ] Using the appropriate command, try to obtain this situation on your local machine:
+* [x] Using the appropriate command, try to obtain this situation on your local machine:
 
 ```
 [INPUT]
@@ -186,7 +202,7 @@ petclinic         prod           323bdb488603   2 hours ago   606MB
 eclipse-temurin   17-jdk-jammy   56c7bc12ee6d   9 days ago    456MB
 ```
 
-* [ ] Is it a good idea to use tags like this to create different stages (dev, int, prod) ?
+* [x] Is it a good idea to use tags like this to create different stages (dev, int, prod) ?
 
 > The Docker tag helps maintain the build version to push the image to the Docker Hub**. The Docker Hub allows us to group images together based on name and tag.** Multiple Docker tags can point to a particular image. Basically, as in Git, Docker tags are similar to a specific commit. Docker tags are just an alias for an image ID.
 >
@@ -195,11 +211,10 @@ eclipse-temurin   17-jdk-jammy   56c7bc12ee6d   9 days ago    456MB
 > Source : [baeldung.com](https://www.baeldung.com/ops/docker-tag)
 
 ```
-//TODO
-Explain
+The Docker tag helps maintain the build version to push the image to the Docker Hub.
 ```
 
-* [ ] Using the appropriate command, update your local images and tags like this:
+* [x] Using the appropriate command, update your local images and tags like this:
 
 ```
 [INPUT]
@@ -213,9 +228,25 @@ eclipse-temurin     17-jdk-jammy     56c7bc12ee6d   10 days ago    456MB
 
 ```
 [INPUT]
-//TODO
+build --tag petclinic:version1.0.dev ./
 
 [OUTPUT]
-//TODO
+[+] Building 0.8s (11/11) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                                                         0.0s
+ => => transferring dockerfile: 234B                                                                                                                                         0.0s
+ => [internal] load .dockerignore                                                                                                                                            0.0s
+ => => transferring context: 47B                                                                                                                                             0.0s
+ => [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-jammy                                                                                              0.8s
+ => [1/6] FROM docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:13ff0fa4f9232f69b9f6e8a4cf86b7cb3a3783dbee06818aa5aee447159c1bc3                                        0.0s
+ => [internal] load build context                                                                                                                                            0.0s
+ => => transferring context: 9.57kB                                                                                                                                          0.0s
+ => CACHED [2/6] WORKDIR /app                                                                                                                                                0.0s
+ => CACHED [3/6] COPY .mvn/ .mvn                                                                                                                                             0.0s
+ => CACHED [4/6] COPY mvnw pom.xml ./                                                                                                                                        0.0s
+ => CACHED [5/6] RUN ./mvnw dependency:resolve                                                                                                                               0.0s
+ => CACHED [6/6] COPY src ./src                                                                                                                                              0.0s
+ => exporting to image                                                                                                                                                       0.0s
+ => => exporting layers                                                                                                                                                      0.0s
+ => => writing image sha256:b6d10fb42b604c3d60fae4c332fa2dae6c969853e9b3e90bb274854f7ed279b2                                                                                 0.0s
+ => => naming to docker.io/library/petclinic:version1.0.dev
 ```
-
