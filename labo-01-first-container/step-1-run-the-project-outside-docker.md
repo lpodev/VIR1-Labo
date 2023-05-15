@@ -10,7 +10,6 @@
 git clone https://github.com/spring-projects/spring-petclinic.git
 ```
 
-<<<<<<< HEAD
 - Read carefully the readme file
 
 <!---->
@@ -18,15 +17,6 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 - [x] What type of application is it ? Application Web
 - [x] Which database engine is used ? MySQL or PostgreSQL
 - [x] Do we need to install the package manager _MAVEN_ before building the project ? No, it's optional, you can choose between Maven or Gradle.
-=======
-* Read the readme file carefully
-
-<!---->
-
-* [ ] What type of application is it?
-* [ ] Which database engine is used?
-* [ ] Do we need to install the package manager _MAVEN_ before building the project?
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 
 <!---->
 
@@ -34,21 +24,13 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 <!---->
 
-<<<<<<< HEAD
 - [x] Which version of Java should compatible with the code provided ? Java 17 or newer
-=======
-* [ ] Which version of Java should be compatible with the code provided?
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 
 ## Setup Java components
 
 ### Check your current Java installation
 
-<<<<<<< HEAD
 - [x] Where is java installed ?
-=======
-* [ ] Where is Java installed?
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 
 ```
 [INPUT]
@@ -58,20 +40,7 @@ which java
 /usr/bin/java
 ```
 
-<<<<<<< HEAD
 - [x] Which current compiler is installed (JDK) ?
-=======
-* [ ] Which current compiler is installed (JDK)?
-
-<pre><code><strong>[INPUT]
-</strong>//TODO
-
-[OUTPUT]
-//TODO
-</code></pre>
-
-* [ ] Which current runtime is installed (JRE)?
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 
 ```
 [INPUT]
@@ -83,7 +52,6 @@ OpenJDK Runtime Environment (build 20.0.1+9-29)
 OpenJDK 64-Bit Server VM (build 20.0.1+9-29, mixed mode, sharing)
 ```
 
-<<<<<<< HEAD
 - [x] Which current runtime is installed (JRE) ?
 
 ```
@@ -100,33 +68,16 @@ OpenJDK 64-Bit Server VM (build 20.0.1+9-29, mixed mode, sharing)
 
 ```
 No, JDK already contains JVM so we can run our java program
-=======
-* [ ] Do we need to install the Java virtual machine (JVM)?
-
-```
-//TODO
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 ```
 
 ### Install the Open JDK
 
-<<<<<<< HEAD
 - [Oracle Download Web Site](https://jdk.java.net/20/)
 
 - Accept the end user license before trying
 - Then get the target url (cookies.
 
 ```bash
-=======
-* [Oracle Download WebSite](https://jdk.java.net/20/)
-
-{% hint style="info" %}
-* Accept the end user license before trying, then
-* Then get the target URL (cookies).
-{% endhint %}
-
-```powershell
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 [INPUT]
 curl https://download.java.net/java/GA/jdk20.0.1/b4887098932d415489976708ad6d1a4b/9/GPL/openjdk-20.0.1_macos-aarch64_bin.tar.gz --output openjdk.tar.gz
 
@@ -142,11 +93,7 @@ curl https://download.java.net/java/GA/jdk20.0.1/b4887098932d415489976708ad6d1a4
 - Generate your local hash based on the archive downloaded ([help](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7.3))
 - Compare both hashes...
 
-<<<<<<< HEAD
-```bash
-=======
 ```powershell
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 [INPUT]
 shasum -a 256 openjdk.tar.gz
 
@@ -166,11 +113,7 @@ No output
 
 #### Move the unzip folder to Programs Folder
 
-<<<<<<< HEAD
-```bash
-=======
 ```
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 [INPUT]
 sudo mv jdk-20.0.1.jdk /Library/Java/JavaVirtualMachines
 
@@ -197,31 +140,18 @@ echo $JAVA_HOME
 
 - [x] Update PATH environment variable
 
-<<<<<<< HEAD
 Backup your current path before updating it.
 `echo %PATH% > path.back`
-=======
-{% hint style="info" %}
-Back up your current path before updating it.
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 
 ```bash
 [INPUT]
 echo $PATH > path.back
 
 [OUTPUT]
-<<<<<<< HEAD
 No output
 ```
 
 - [ ] Check the variables settings
-=======
-//TODO
-
-```
-
-* [ ] Check the variables
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 
 ```bash
 [INPUT]
@@ -229,12 +159,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 which java
 
 [OUTPUT]
-<<<<<<< HEAD
 /usr/bin/java
-=======
-//TODO
-
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
 ```
 
 ## Build and test the project
@@ -267,7 +192,6 @@ mvn package
 [INFO] ------------------------------------------------------------------------
 ```
 
-<<<<<<< HEAD
 ### Result expected
 
 ```bash
@@ -421,10 +345,3 @@ mvn package
 2023-05-08T11:56:01.169+02:00  INFO 81142 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2023-05-08T11:56:01.179+02:00  INFO 81142 --- [  restartedMain] o.s.s.petclinic.PetClinicApplication     : Started PetClinicApplication in 2.26 seconds (process running for 2.435)
 ```
-=======
-### Result expected 
-
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
->>>>>>> 34def1ae84276ab970bd3f781ab863653599ceb8
