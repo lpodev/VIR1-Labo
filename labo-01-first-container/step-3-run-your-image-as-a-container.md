@@ -15,8 +15,8 @@ Linux user, change ^ by ' to execute multi lines commands.
 
 ```
 [INPUT]
-curl --request GET ^
---url http://localhost/actuator/health ^
+curl --request GET \
+--url http://localhost/actuator/health \
 --header 'content-type: application/json'
 
 [OUTPUT]
@@ -25,7 +25,7 @@ curl --request GET ^
 //disregard the message curl: (6) Could not resolve host: application
 ```
 
-* [ ] List all Dockers currently running on your local environment. Observe the port forwarding for your "petclinic" docker.
+* [x] List all Dockers currently running on your local environment. Observe the port forwarding for your "petclinic" docker.
 
 ```
 [INPUT]
@@ -164,9 +164,10 @@ eclipse-petclinic:version1.0.dev   0.0.0.0:80->8080/tcp.   petclinic-server
 
 ```
 [INPUT]
-//TODO
+docker ps --format "table {{.Image}}\t{{.Ports}}\t{{.Names}}"
 
 [OUTPUT]
-//TODO
+IMAGE                          PORTS                    NAMES
+petclinic-app:version1.0.dev   0.0.0.0:8080->8080/tcp   recursing_liskov
 ```
 
