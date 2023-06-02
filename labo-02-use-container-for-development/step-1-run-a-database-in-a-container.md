@@ -12,34 +12,33 @@ Take the time to become familiar with the concept of volumes before carrying out
 
 Let's create both volumes, one for the data, and another one for the db config.
 
-* [ ] Create one volume for the MySQL data (tag name : mysql_data)
+* [x] Create one volume for the MySQL data (tag name : mysql_data)
 
 ```
 [INPUT]
 docker volume create mysql_data
 
 [OUTPUT]
-//TODO
+mysql_data
 ```
 
-* [ ] Create a second volume for the MySQL configuration (tag name : mysql_config)
-
-```
-[INPUT]
-//TODO create mysql_config
-
-[OUTPUT]
-//TODO
-```
-
-* [ ] List the volumes
+* [x] Create a second volume for the MySQL configuration (tag name : mysql_config)
 
 ```
 [INPUT]
-//TOOD  
+docker volume create mysql_config
 
 [OUTPUT]
-//Expected result
+mysql_config
+```
+
+* [x] List the volumes
+
+```
+[INPUT]
+docker volume ls  
+
+[OUTPUT]
 DRIVER    VOLUME NAME
 local     mysql_config
 local     mysql_data
@@ -49,29 +48,28 @@ local     mysql_data
 
 Let's create a user-defined bridge network enabling our application and our database to talk to each other.
 
-* [ ] Create the network
+* [x] Create the network
 
 ```
 [INPUT]
-//TODO create mysqlnet
+docker network create mysqlnet
 
 [OUTPUT]
-//TODO
+71814d243c0ecac7c337bbc2a2a93fd5d4abd9365475b61b66c4349506041599
 ```
 
-* [ ] List the networks
+* [x] List the networks
 
 ```
 [INPUT]
-//TODO list docker network
+docker network ls
 
 [OUTPUT]
-//TODO Expected result
 NETWORK ID     NAME       DRIVER    SCOPE
-805d02ebf9f0   bridge     bridge    local
-f3b0c7151a6f   host       host      local
-b952e34b3da7   mysqlnet   bridge    local
-5884ab7981ab   none       null      local
+8a3fe1df2b00   bridge     bridge    local
+f81f31f8f218   host       host      local
+71814d243c0e   mysqlnet   bridge    local
+a3768e021991   none       null      local
 ```
 
 ### Run MySQL
@@ -88,7 +86,13 @@ Check your host ports and do no try to forward one of them that is already is us
 
 ```
 [INPUT]
-//TODO Run docker
+docker run -it --rm -d -v mysql_data:/var/lib/mysql \
+-v mysql_config:/etc/mysql/conf.d \
+--network mysqlnet \
+--name mysqlserver \
+-e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic \
+-e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic \
+-p 3306:3306 mysql:8.0
 
 [OUTPUT]
 Unable to find image 'mysql:8.0' locally
@@ -108,33 +112,35 @@ a11a06843fd5: Waiting
 2b7afc93c37d715c6d592de78173386903e123d0c7065ac34329ab81e9fcefd8
 ```
 
-* [ ] List all containers (all states)
+* [x] List all containers (all states)
 
 ```
 [INPUT]
-//TODO
+docker ps -a --format "table {{.Image}}\t{{.Ports}}\t{{.Names}}"
 
 [OUTPUT]
-//TODO Result expected
-IMAGE                              PORTS.                               NAMES
-mysql:8.0                          33060/tcp, 0.0.0.0:3316->3306/tcp.   mysqlserver
-eclipse-petclinic:version1.0.dev   0.0.0.0:80->8080/tcp.                petclinic-server
+IMAGE                          PORTS     NAMES
+mysql:8.0                                mysqlserver
+springboot-lpo:dev                       busy_davinci
+petclinic-app:version1.0.dev             recursing_liskov
+petclinic-app:version1.0.dev             cool_shtern
+springboot-lpo:dev                       interesting_ramanujan
 ```
 
 ### Update our Dockerfile to activate MySQL
 
 Currently H2 is used on our Petclinic Container. We need to switch on MySQL.
 
-* [ ] Add this command to your Dockerfile, in the right place.
+* [x] Add this command to your Dockerfile, in the right place.
 
 ```
 CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql"]
 ```
 
-* [ ] If you run both docker, the application server will not able to talk with the dbserver... any idea why ?
+* [x] If you run both docker, the application server will not able to talk with the dbserver... any idea why ?
 
 ```
-//TODO
+If you run both the Docker containers for the application server and the database server separately, they won't be able to communicate because they are not connected to the same network. To allow communication between the containers, you need to ensure that both containers are attached to the same network.
 ```
 
 * [ ] Let's build our image
