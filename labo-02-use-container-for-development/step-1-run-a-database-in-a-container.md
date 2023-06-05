@@ -143,20 +143,20 @@ CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql"]
 If you run both the Docker containers for the application server and the database server separately, they won't be able to communicate because they are not connected to the same network. To allow communication between the containers, you need to ensure that both containers are attached to the same network.
 ```
 
-* [ ] Let's build our image
+* [x] Let's build our image
 
 ```
 [INPUT]
 docker build --tag eclipse-petclinic:version1.1.dev .
 
 [OUTPUT]
-//Result Expected (version1.1.dev)
-docker images
-REPOSITORY          TAG              IMAGE ID       CREATED         SIZE
-eclipse-petclinic   version1.1.dev   7dcc2df873a9   6 seconds ago   607MB
-eclipse-petclinic   version1.0.dev   323bdb488603   4 days ago      606MB
-eclipse-temurin     17-jdk-jammy     56c7bc12ee6d   13 days ago     456MB
-mysql               8.0              8189e588b0e8   4 weeks ago     564MB
+REPOSITORY          TAG              IMAGE ID       CREATED       SIZE
+eclipse-petclinic   version1.1.dev   c81b4edc2ea9   2 hours ago   611MB
+mysql               8.0              fe893ca74649   11 days ago   592MB
+springboot-lpo      dev              7871880f62a8   2 weeks ago   602MB
+springboot-lpo      int              7871880f62a8   2 weeks ago   602MB
+springboot-lpo      prod             7871880f62a8   2 weeks ago   602MB
+petclinic-app       version1.0.dev   7871880f62a8   2 weeks ago   602MB
 ```
 
 * [ ] Test your application
