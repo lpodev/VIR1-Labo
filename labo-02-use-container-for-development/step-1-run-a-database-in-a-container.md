@@ -92,24 +92,10 @@ docker run -it --rm -d -v mysql_data:/var/lib/mysql \
 --name mysqlserver \
 -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic \
 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic \
--p 3306:3306 mysql:8.0
+-p 3308:3306 mysql:8.0
 
 [OUTPUT]
-Unable to find image 'mysql:8.0' locally
-8.0: Pulling from library/mysql
-328ba678bf27: Downloading [====>                                              ]  4.107MB/44.56MB
-f3f5ff008d73: Download complete
-dd7054d6d0c7: Download complete
-70b5d4e8750e: Downloading [======================================>            ]   3.55MB/4.608MB
-cdc4a7b43bdd: Download complete
-a0608f8959e0: Download complete
-5823e721608f: Downloading [>                                                  ]  1.081MB/58.59MB
-a564ada930a9: Waiting
-539565d00e89: Waiting
-a11a06843fd5: Waiting
-92f6d4aa041d: Waiting
-[...]
-2b7afc93c37d715c6d592de78173386903e123d0c7065ac34329ab81e9fcefd8
+fd1e3908730051aa29c2f8766bedf9558ed17b98b35cafd8edac4e9f50ea752e
 ```
 
 * [x] List all containers (all states)
@@ -119,12 +105,9 @@ a11a06843fd5: Waiting
 docker ps -a --format "table {{.Image}}\t{{.Ports}}\t{{.Names}}"
 
 [OUTPUT]
-IMAGE                          PORTS     NAMES
-mysql:8.0                                mysqlserver
-springboot-lpo:dev                       busy_davinci
-petclinic-app:version1.0.dev             recursing_liskov
-petclinic-app:version1.0.dev             cool_shtern
-springboot-lpo:dev                       interesting_ramanujan
+IMAGE                          PORTS                               NAMES
+mysql:8.0                      33060/tcp, 0.0.0.0:3308->3306/tcp   mysqlserver
+petclinic-app:version1.0.dev   0.0.0.0:8080->8080/tcp              silly_antonelli
 ```
 
 ### Update our Dockerfile to activate MySQL
@@ -159,19 +142,19 @@ springboot-lpo      prod             7871880f62a8   2 weeks ago   602MB
 petclinic-app       version1.0.dev   7871880f62a8   2 weeks ago   602MB
 ```
 
-* [ ] Test your application
+* [x] Test your application
 
 ```
 [INPUT]
-//TODO Start your docker
+docker start silly_antonelli
 
 
 [INPUT]
 //Call the vets route
-curl --request GET ^
-    --url http://localhost/vets ^
+curl --request GET \
+    --url http://localhost:8080/vets \
     --header 'content-type: application/json'
 
 [OUTPUT]
-//Result Expected
+{"vetList":[{"id":1,"firstName":"James","lastName":"Carter","specialties":[],"nrOfSpecialties":0,"new":false},{"id":2,"firstName":"Helen","lastName":"Leary","specialties":[{"id":1,"name":"radiology","new":false}],"nrOfSpecialties":1,"new":false},{"id":3,"firstName":"Linda","lastName":"Douglas","specialties":[{"id":3,"name":"dentistry","new":false},{"id":2,"name":"surgery","new":false}],"nrOfSpecialties":2,"new":false},{"id":4,"firstName":"Rafael","lastName":"Ortega","specialties":[{"id":2,"name":"surgery","new":false}],"nrOfSpecialties":1,"new":false},{"id":5,"firstName":"Henry","lastName":"Stevens","specialties":[{"id":1,"name":"radiology","new":false}],"nrOfSpecialties":1,"new":false},{"id":6,"firstName":"Sharon","lastName":"Jenkins","specialties":[],"nrOfSpecialties":0,"new":false}]}%
 ```
